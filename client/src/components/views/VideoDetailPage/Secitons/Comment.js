@@ -42,11 +42,13 @@ function Comment(props) {
             <hr />
 
             {/* Comment Lists */}
-            {props.commentLists && props.commentLists.map((comment, index)=>(
+            {props.commentLists && props.commentLists.map((comment, i)=>(
                 (!comment.responseTo &&
-                    <React.Fragment key={index}  >
-                    <SingleComment refreshFunction={props.refreshFunction} videoId={videoId} comment={comment} />
-                    <ReplyComment refreshFunction={props.refreshFunction} parentCommentId={comment._id} videoId={videoId} commentLists={props.commentLists}/>
+                    <React.Fragment key={i}>
+                    <SingleComment  rfreshFunction={props.refreshFunction} deletFunction={props.deletFunction}
+                    videoId={videoId} comment={comment} />
+                    <ReplyComment refreshFunction={props.refreshFunction} deletFunction={props.deletFunction}
+                    parentCommentId={comment._id} videoId={videoId} commentLists={props.commentLists}/>
                     </React.Fragment>
                     )
             ))}

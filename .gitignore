@@ -1,8 +1,10 @@
 /node_modules
 /build
-
+/uploads
+uploads
 dev.js
-
+thumbnails
+/thumbnails
 
 
 .DS_Store
@@ -12,3 +14,4 @@ yarn-debug.kog*
 yarn-error.log*
 
 .vscode
+

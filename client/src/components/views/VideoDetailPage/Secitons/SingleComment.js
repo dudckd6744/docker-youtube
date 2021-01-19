@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Comment, Avatar, Button, Input} from "antd"
+import { Comment, Avatar, Button, Icon, message} from "antd"
 import Axios from 'axios'
+import LikeDislikes from "./LikeDislikes";
 import { useSelector } from 'react-redux';
 
 function SingleComment(props) {
@@ -38,13 +39,36 @@ function SingleComment(props) {
             }
         })
     }
+    const onDeleteComment =()=>{
+        var variable = {
+            commentId : props.comment._id
+        }
+
+        Axios.post('/api/comment/deletecomment',variable)
+        .then(response => {
+            if(response.data.success){
+                console.log(response.data.doc)
+                props.deletFunction(response.data.doc)
+                message.success("댓글을 삭제하였습니다.")
+            }else{
+                alert("댓글 삭제를 실패하였습니다.")
+            }
+        })
+    }
 
     const actions = [
-        <span onClick={onClickOpenReply} key="comment-basic-reply-to"> Reply to</span>
+        <LikeDislikes userId={localStorage.getItem('userId')} commentId={props.comment._id} />
+        ,<span onClick={onClickOpenReply} key="comment-basic-reply-to"> Reply to</span>,
+        [user.userData._id === props.comment.writer._id &&
+            <span onClick={onDeleteComment}
+            key="commet-delete-reply-to" ><Icon type="delete" /> </span>
+]
     ]
-
+    
     return (
         <div>
+            
+
             <Comment 
                 actions={actions}
                 author={props.comment.writer.name}

@@ -35,5 +35,15 @@ router.post('/getComment', (req,res)=>{
 })
 
 
+router.post('/deletecomment', (req,res)=>{
+    console.log(req.body)
+    Comment.findByIdAndDelete({ "_id": req.body.commentId})
+    .exec((err, doc)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).json({success:true, doc})
+    })
+})
+
+
 
 module.exports = router;

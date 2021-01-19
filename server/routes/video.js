@@ -4,6 +4,7 @@ const multer = require('multer');
 const ffmpeg =  require("fluent-ffmpeg");
 const { Video } = require("../models/Video");
 const { Subscriber} = require('../models/Subscriber');
+const { Comment } = require("../models/Comment")
 
 const { auth } = require("../middleware/auth");
 
@@ -37,6 +38,21 @@ router.get('/getVideos',(req,res)=>{
             if(err) return res.status(400).json({success:false, err})
             res.status(200).json({success:true, videos})
         })
+})
+
+router.post('/deleteVideo',(req,res)=>{
+    
+    Video.findByIdAndDelete({'_id':req.body.videoId})
+    .exec((err, doc)=>{
+        if(err) return res.status(400).send(err);
+        console.log(doc)
+        Comment.deleteMany({'videoId':{$in:doc._id}})
+        .exec((err,rere)=>{
+            if(err) return res.status(400).send(err);
+            res.status(200).json({success:true})
+        })
+    })
+
 })
 
 router.post('/getSubscriptionVideos',(req,res)=>{
