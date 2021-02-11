@@ -1,0 +1,17 @@
+FROM node:11-alpine
+
+WORKDIR /app
+
+COPY ./package.json ./
+
+COPY ./ ./
+
+
+RUN apk add --no-cache make gcc g++ python && \
+  npm install && \
+  apk del make gcc g++ python
+
+RUN npm rebuild bcrypt 
+
+
+CMD ["npm", "run", "backend"]
