@@ -1,0 +1,49 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "dudckd/youtube-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "server",
+            "image": "dudckd/youtube-server",
+            "hostname": "server",
+            "essential": false,
+            "links": [
+                "mongo"
+            ],
+            "memory": 128
+        },
+        {
+            "name": "mongo",
+            "image": "dudckd/youtube-mongo",
+            "hostname": "mongo",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 27017,
+                    "containerPort": 27017
+                }
+            ],
+            "memory": 128
+        },
+        {
+            "name": "nginx",
+            "image": "dudckd/youtube-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["frontend", "backend"],
+            "memory": 128
+        }
+    ]
+}
