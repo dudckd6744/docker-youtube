@@ -10,4 +10,14 @@ before_install:
 
 script:
   - docker run -e CI=true dudckd/docker-test-app npm run test
-  
+
+after_install:
+  - docker build -t dudckd/youtube-client ./client
+  - docker build -t dudckd/youtube-server ./server
+  - docker build -t dudckd/youtube-nginx ./nginx
+
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+
+  - docker push dudckd/youtube-client 
+  - docker push dudckd/youtube-server 
+  - docker push dudckd/youtube-nginx 
