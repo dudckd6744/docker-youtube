@@ -11,7 +11,7 @@ before_install:
 script:
   - docker run -e CI=true dudckd/docker-test-app npm run test
 
-after_install:
+after_success:
   - docker build -t dudckd/youtube-client ./client
   - docker build -t dudckd/youtube-server ./server
   - docker build -t dudckd/youtube-nginx ./nginx
