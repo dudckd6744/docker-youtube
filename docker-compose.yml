@@ -32,6 +32,8 @@ services:
       - ./server:/app
 
   mongo:
-    image: mongo
+    build: 
+      dockerfile: Dockerfile
+      context: ./mongo
     ports: 
       - "27017:27017"

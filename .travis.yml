@@ -15,9 +15,24 @@ after_success:
   - docker build -t dudckd/youtube-client ./client
   - docker build -t dudckd/youtube-server ./server
   - docker build -t dudckd/youtube-nginx ./nginx
+  - docker build -t dudckd/youtube-mongo ./mongo
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
   - docker push dudckd/youtube-client 
   - docker push dudckd/youtube-server 
   - docker push dudckd/youtube-nginx 
+  - docker push dudckd/youtube-mongo
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-youtube-app"
+  env: "Dockeryoutubeapp-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-840213432037"
+  bucket_path: "docker-youtube-app"
+  on:
+    branch: master
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
