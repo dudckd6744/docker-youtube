@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg =  require("fluent-ffmpeg");
 const { Video } = require("../models/Video");
 const { Subscriber} = require('../models/Subscriber');
 const { Comment } = require("../models/Comment")
 
 const { auth } = require("../middleware/auth");
+
+ffmpeg.setFfmpegPath(ffmpegInstaller);
+console.log(ffmpegInstaller.path, ffmpegInstaller.version);
+
+
 
 var storage = multer.diskStorage({
     destination: (req,file,cb)=>{
@@ -116,8 +122,8 @@ router.post('/thumbnail',(req,res)=>{
 
     //비디오 정보 가져오기
     ffmpeg.ffprobe(req.body.url, function(err, metadata){
-        console.log(metadata)
-        console.log(metadata.format.duration);
+        console.log(req.body)
+        console.log(metadata);
         fileDuration = metadata.format.duration
     })
     
@@ -139,7 +145,7 @@ router.post('/thumbnail',(req,res)=>{
     })
     .screenshots({
         count:3,
-        folder: 'uploads/thumbnails',
+        folder: "uploads/thumbnails",
         size:'320x240',
         filename: 'thumbnail-%b.png'
     })

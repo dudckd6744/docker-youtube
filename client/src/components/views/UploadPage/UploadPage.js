@@ -114,7 +114,7 @@ function UploadPage(props) {
                 <Title level={2}>Upload Video</Title>
             </div>
 
-            <Form onsubmit={onSubmit}>
+            <Form onSubmit={onSubmit}>
                 <div style={{ display:"flex", justifyContent:'space-between'}}>
                     {/* { Drop zone} */}
                     <Dropzone
