@@ -6,7 +6,7 @@
             "image": "dudckd/youtube-client",
             "hostname": "client",
             "essential": false,
-            "memory": 200
+            "memory": 128
         },
         {
             "name": "server",
@@ -16,7 +16,7 @@
             "links": [
                 "mongo"
             ],
-            "memory": 500
+            "memory": 128
         },
         {
             "name": "mongo",
@@ -43,7 +43,7 @@
                 }
             ],
             "links": ["client", "server"],
-            "memory": 500
+            "memory": 128
         }
     ]
 }
