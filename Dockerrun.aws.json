@@ -6,7 +6,12 @@
             "image": "dudckd/youtube-client",
             "hostname": "client",
             "essential": false,
-            "memory": 128
+            "memory": 128,
+            "command": [
+                "tail",
+                "-f",
+                "/bin/bash"
+            ]
         },
         {
             "name": "server",
@@ -16,7 +21,12 @@
             "links": [
                 "mongo"
             ],
-            "memory": 128
+            "memory": 128,
+            "command": [
+                "tail",
+                "-f",
+                "/bin/bash"
+            ]
         },
         {
             "name": "mongo",
@@ -29,7 +39,12 @@
                     "containerPort": 27017
                 }
             ],
-            "memory": 128
+            "memory": 128,
+            "command": [
+                "tail",
+                "-f",
+                "/bin/bash"
+            ]
         },
         {
             "name": "nginx",
@@ -43,7 +58,12 @@
                 }
             ],
             "links": ["client", "server"],
-            "memory": 128
+            "memory": 128,
+            "command": [
+                "tail",
+                "-f",
+                "/bin/bash"
+            ]
         }
     ]
 }
