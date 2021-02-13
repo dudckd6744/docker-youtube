@@ -23,7 +23,7 @@ after_success:
   - docker push dudckd/youtube-server 
   - docker push dudckd/youtube-nginx 
   - docker push dudckd/youtube-mongo
-
+# 
 deploy:
   provider: elasticbeanstalk
   region: "ap-northeast-2"
